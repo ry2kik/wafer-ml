@@ -32,24 +32,19 @@ def predictRouteClient():
     try:
         if request.json is not None:
             path = request.json['filepath']
-
             pred_val = pred_validation(path)  # object initialization
-
             pred_val.prediction_validation()  # calling the prediction_validation function
-
             pred = prediction(path)  # object initialization
 
             # predicting for dataset present in database
             path, json_predictions = pred.predictionFromModel()
             return Response("Prediction File created at !!!" + str(path) + 'and few of the predictions are ' + str(
                 json.loads(json_predictions)))
+
         elif request.form is not None:
             path = request.form['filepath']
-
             pred_val = pred_validation(path)  # object initialization
-
             pred_val.prediction_validation()  # calling the prediction_validation function
-
             pred = prediction(path)  # object initialization
 
             # predicting for dataset present in database
@@ -75,25 +70,16 @@ def trainRouteClient():
         # path = request.json['folderPath']
         if folder_path is not None:
             path = folder_path
-
             train_valObj = train_validation(path)  # object initialization
-
             train_valObj.train_validation()  # calling the training_validation function
-
             trainModelObj = trainModel()  # object initialization
             trainModelObj.trainingModel()  # training the model for the files in the table
 
-
     except ValueError:
-
         return Response("Error Occurred! %s" % ValueError)
-
     except KeyError:
-
         return Response("Error Occurred! %s" % KeyError)
-
     except Exception as e:
-
         return Response("Error Occurred! %s" % e)
     return Response("Training successful!!")
 
